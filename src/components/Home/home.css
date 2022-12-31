@@ -26,7 +26,7 @@
     transition: 0.2s
 }
 
-.timeline-thumbnail:hover{
+.timeline-thumbnail:hover, .button-thumbnail:hover{
     cursor: pointer;
     background-color: #E56B6F;
 }
@@ -36,6 +36,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    padding: 5vw;
 }
 
 @media(max-width: 700px){

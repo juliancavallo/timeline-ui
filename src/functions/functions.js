@@ -5,6 +5,12 @@ const getAllTimelines = async (state) => {
     state(request.data);
 }
 
+const getEvents = async (state, idTimeline) => {
+    const request = await axios.get(`${process.env.REACT_APP_API_URL}/events/${idTimeline}`);
+    state(request.data);
+}
+
 export {
-    getAllTimelines
+    getAllTimelines,
+    getEvents
 }

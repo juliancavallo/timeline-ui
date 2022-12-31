@@ -1,0 +1,97 @@
+.timeline{
+    border-radius: 5px;
+    border: none;
+    
+    height: 1rem;
+    width: 90vw;
+    margin: 30vh auto auto auto; 
+
+    background-color: #EAAC8B;
+    
+    display: flex;
+    justify-content: center;
+}
+
+.buttons-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: absolute;
+    top: 5vh;
+}
+
+.events-container{
+    margin-top: -27px;
+    display: flex;
+    position: absolute;
+    left: 5vw;
+}
+
+.select-container{    
+    margin: 0px 3rem 0px 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(230, 230, 230);
+}
+
+.select-container > .select{
+    margin-top: 15px;
+}
+
+.time-btn, .select{
+    width: 4rem;
+    height: 2rem;
+
+    border: none;
+    border-radius: 20%;
+    text-align: center;
+
+    transition: all 0.5s ease;
+    background-color: #355070;
+    border: 1px solid rgb(230, 230, 230);
+    color: rgb(230, 230, 230);
+}
+
+.time-btn{
+    font-size: 1rem;
+}
+
+
+.select:hover{
+    cursor: pointer;
+}
+
+.time-btn:hover{
+    cursor: pointer;
+    background-color: #E56B6F;
+}
+
+.year{  
+    width: 250px;
+    color: rgb(230, 230, 230);
+}
+
+.mark{
+    height: 0.5rem;
+    width: 11px;
+    
+    margin: 9px 10px;
+    border: 1px solid #355070;
+    border-radius: 5px;
+    background-color:  #355070;
+}
+
+.event-title{
+
+    transition: all 0.5s ease;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 10px;
+    padding: 15px;
+    width: 80%;
+}
+
+.event-title:hover{
+    cursor: pointer;
+    background-color: #E56B6F;
+}
