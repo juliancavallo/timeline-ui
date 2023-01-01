@@ -39,7 +39,7 @@
     margin-top: 15px;
 }
 
-.time-btn, .select{
+.time-btn, .select, .redirect-button{
     width: 4rem;
     height: 2rem;
 
@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-.time-btn:hover{
+.time-btn:hover, .redirect-button:hover{
     cursor: pointer;
     background-color: #E56B6F;
 }
@@ -83,7 +83,7 @@
 }
 
 .event-title{
-
+    margin-bottom: 15px;
     transition: all 0.5s ease;
     border: 1px solid rgb(230, 230, 230);
     border-radius: 10px;
@@ -94,4 +94,14 @@
 .event-title:hover{
     cursor: pointer;
     background-color: #E56B6F;
+}
+
+.redirect-button{
+    text-decoration: none;
+    position: fixed;
+    top:10px;
+    left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

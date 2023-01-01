@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import { getAllTimelines } from '../../functions/functions';
+import { getAllTimelines } from '../../functions/apiFunctions';
 import './home.css'
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const [timelines, setTimelines] = useState(null)
@@ -10,10 +10,7 @@ const Home = () => {
         getAllTimelines(setTimelines);
     },[])
 
-    let navigate = useNavigate(); 
-    const routeChange = (id) => {
-        navigate(`/timelines/${id}`)
-    }
+    console.log('render')
 
     return (
         <>
@@ -21,9 +18,7 @@ const Home = () => {
                 timelines != null ? (
                     <div className='timeline-container'>
                         {timelines.map(x => (
-                            <div key={x.id} className='timeline-thumbnail' onClick={() => routeChange(x.id)}>
-                                <p>{x.title}</p>
-                            </div>
+                            <Link to={`/timelines/${x.id}`} className='timeline-thumbnail' key={x.id}>{x.title}</Link>
                         )).concat(
                             <div key='addTimelineBtn' className='button-thumbnail'>
                                 <p>+</p>
