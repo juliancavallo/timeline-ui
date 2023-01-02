@@ -6,7 +6,7 @@
     width: 90vw;
     margin: 30vh auto auto auto; 
 
-    background-color: #EAAC8B;
+    background-color: var(--primary);
     
     display: flex;
     justify-content: center;
@@ -32,25 +32,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: rgb(230, 230, 230);
+    color: var(--white);
 }
 
 .select-container > .select{
     margin-top: 15px;
 }
 
-.time-btn, .select, .redirect-button{
+.time-btn, .select, .redirect-button, .new-event-button{
     width: 4rem;
     height: 2rem;
 
     border: none;
-    border-radius: 20%;
+    border-radius: 10px;
     text-align: center;
 
-    transition: all 0.5s ease;
-    background-color: #355070;
-    border: 1px solid rgb(230, 230, 230);
-    color: rgb(230, 230, 230);
+    transition: all 0.2s ease;
+    background-color: var(--dark);
+    border: 1px solid var(--white);
+    color: var(--white);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .time-btn{
@@ -62,14 +66,14 @@
     cursor: pointer;
 }
 
-.time-btn:hover, .redirect-button:hover{
+.time-btn:hover, .redirect-button:hover, .new-event-button:hover{
     cursor: pointer;
-    background-color: #E56B6F;
+    background-color: var(--secondary)
 }
 
 .year{  
     width: 250px;
-    color: rgb(230, 230, 230);
+    color: var(--white);
 }
 
 .mark{
@@ -77,15 +81,15 @@
     width: 11px;
     
     margin: 9px 10px;
-    border: 1px solid #355070;
+    border: 1px solid var(--dark);
     border-radius: 5px;
-    background-color:  #355070;
+    background-color:  var(--dark);
 }
 
 .event-title{
     margin-bottom: 15px;
-    transition: all 0.5s ease;
-    border: 1px solid rgb(230, 230, 230);
+    transition: all 0.2s ease;
+    border: 1px solid var(--white);
     border-radius: 10px;
     padding: 15px;
     width: 80%;
@@ -93,7 +97,7 @@
 
 .event-title:hover{
     cursor: pointer;
-    background-color: #E56B6F;
+    background-color: var(--secondary);
 }
 
 .redirect-button{
@@ -104,4 +108,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.new-event-button{
+    position: absolute;
+    bottom: 50px;
+    width: 9rem;
+    height: 3rem;
 }

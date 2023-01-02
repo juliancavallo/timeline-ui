@@ -4,12 +4,24 @@
   box-sizing: border-box;
 }
 
+:root{
+  --primary: #EAAC8B;
+  --secondary: #E56B6F;
+  --white: rgb(230, 230, 230);
+  --black: #0d0e0f;
+  --dark: #355070;
+}
+
 body {
   margin: 0;
+  background-color: var(--dark);
+}
+
+body, button, input, textarea{
+
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #355070;
   font-size: large;
 }
 

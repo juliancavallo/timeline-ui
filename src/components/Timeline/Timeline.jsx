@@ -5,13 +5,14 @@ import {useWindowWidth} from '../../functions/customHooks'
 import './timeline.css'
 import Toast from '../Toast/Toast';
 import { Link } from 'react-router-dom';
-import {Home} from '@mui/icons-material';
+import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight} from '@mui/icons-material';
 
 const Timeline = () => {
     let { id } = useParams();
     const [events, setEvents] = useState(null);
     const [range, setRange] = useState(1);
     const [offset, setOffset] = useState(0);
+    const [selectedItem, setselectedItem] = useState(null);
     const windowWidth = useWindowWidth();
 
     useEffect(() => {
@@ -20,8 +21,12 @@ const Timeline = () => {
         loadData();
     }, [])
 
-    const showToast = ({item}) => {
-        <Toast info={item.summary} />
+    const handleEventClick = (item) => {
+        setselectedItem(item);
+    }
+
+    const handleEventClosed = () => {
+        setselectedItem(null);
     }
 
     const addEvents = (year) => {
@@ -32,7 +37,7 @@ const Timeline = () => {
         if(eventsInRange){
             for(let i in eventsInRange){
                 elements.push( 
-                    <div className='event-title' onClick={() => showToast({item: eventsInRange[i]})} key={i}>
+                    <div className='event-title' onClick={() => handleEventClick(eventsInRange[i])} key={i}>
                         {eventsInRange[i].title}
                     </div>);
             }
@@ -72,7 +77,7 @@ const Timeline = () => {
                 {(events != null && events.length > 0) ? (
                     <>
                         <section className="buttons-container">
-                            <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}>◄</button>
+                            <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardDoubleArrowLeft/></button>
                             <div className="select-container">
                                 <label htmlFor="range">Year range</label>
                                 <select name="selectRange" id="range" className="select" onChange={(e) => setRange(Number(e.target.value))}>
@@ -86,10 +91,17 @@ const Timeline = () => {
                                     <option value="500">500</option>
                                 </select>
                             </div>
-                            <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}>►</button>
-                        </section><section className='events-container'>
+                            <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}><KeyboardDoubleArrowRight/></button>
+                        </section>
+                        <section className='events-container'>
                                 {loadData()}
                         </section>
+                        <button id="btnNewEvent" className='new-event-button'>New event</button>
+                        {
+                            selectedItem != null && (
+                                <Toast info={selectedItem} handleClosed={() => handleEventClosed()}></Toast>
+                            )
+                        }
                     </>
 
                 ) : <></>}

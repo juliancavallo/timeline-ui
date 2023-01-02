@@ -1,14 +1,16 @@
 .timeline-thumbnail {
-    background-color: #EAAC8B;
+    background-color: var(--primary);
+    color: var(--black);
 }
 
 .button-thumbnail{
-    background-color: #B56576;
+    
+    background-color: var(--white);
+    color: var(--black);
     font-size: 2rem;
 }
 
 .timeline-thumbnail, .button-thumbnail {
-    color: #0d0e0f;
     border-radius: 15px;
 
     padding: 5px;
@@ -29,7 +31,7 @@
 
 .timeline-thumbnail:hover, .button-thumbnail:hover{
     cursor: pointer;
-    background-color: #E56B6F;
+    background-color: var(--secondary);
 }
 
 .timeline-container{
