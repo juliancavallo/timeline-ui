@@ -14,11 +14,16 @@ const Timeline = () => {
     const [offset, setOffset] = useState(0);
     const [selectedItem, setselectedItem] = useState(null);
     const [updateData, setUpdateData] = useState(true);
+    const [createEvent, setCreateEvent] = useState(null);
     const windowWidth = useWindowWidth();
 
     useEffect(() => {
         if(updateData){
-            getEvents(setEvents, id);
+            async function getEventsAsync(){
+                await getEvents(setEvents, id);
+            }
+
+            getEventsAsync();
             console.log('useEffect');
             loadData();
 
@@ -32,6 +37,7 @@ const Timeline = () => {
 
     const handleEventClosed = () => {
         setselectedItem(null);
+        setCreateEvent(null);
         setUpdateData(true);
     }
 
@@ -113,7 +119,12 @@ const Timeline = () => {
             </div>
         }
         
-        <button id="btnNewEvent" className='new-event-button'>New event</button>
+        <button id="btnNewEvent" className='new-event-button' onClick={() => setCreateEvent(true)}>New event</button>
+        {
+            createEvent != null && (
+                <Toast handleClosed={() => handleEventClosed()} info={({idTimeline: id})}></Toast>
+            )
+        }
         </>
     )
 }

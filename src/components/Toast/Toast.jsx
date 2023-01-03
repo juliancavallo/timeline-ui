@@ -4,9 +4,9 @@ import {Close, Delete} from '@mui/icons-material';
 import { createEvent, updateEvent } from '../../functions/apiFunctions';
 
 const Toast = ({info, handleClosed}) => {
-    const [title, setTitle] = useState(info.title);
-    const [summary, setSummary] = useState(info.summary);
-    const [date, setDate] = useState(info.date.split('T')[0]);
+    const [title, setTitle] = useState(info.title ?? 'Title...');
+    const [summary, setSummary] = useState(info.summary ?? 'Description...');
+    const [date, setDate] = useState(info.date != null ? info.date.split('T')[0] : '2022-01-01');
 
     const handleDeleted = () => {
         alert(info.id);

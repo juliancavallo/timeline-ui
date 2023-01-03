@@ -7,7 +7,11 @@ const Home = () => {
     const [timelines, setTimelines] = useState(null)
 
     useEffect(() => {
-        getAllTimelines(setTimelines);
+        async function getAllTimelinesAsync() {
+            await getAllTimelines(setTimelines);
+        }
+
+        getAllTimelinesAsync();
     },[])
 
     console.log('render')
