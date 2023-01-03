@@ -12,7 +12,22 @@ const getEvents = async (state, idTimeline) => {
     state(response.data);
 }
 
+
+const createEvent = async (info) => {
+    console.log('createEvent');
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/events`, info);
+    console.log(response);
+}
+
+const updateEvent = async (info, id) => {
+    console.log('updateEvent');
+    const response = await axios.put(`${process.env.REACT_APP_API_URL}/events/${id}`, info);
+    console.log(response);
+}
+
 export {
     getAllTimelines,
-    getEvents
+    getEvents,
+    createEvent,
+    updateEvent
 }

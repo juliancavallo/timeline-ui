@@ -13,13 +13,18 @@ const Timeline = () => {
     const [range, setRange] = useState(1);
     const [offset, setOffset] = useState(0);
     const [selectedItem, setselectedItem] = useState(null);
+    const [updateData, setUpdateData] = useState(true);
     const windowWidth = useWindowWidth();
 
     useEffect(() => {
-        getEvents(setEvents, id);
-        console.log('useEffect');
-        loadData();
-    }, [])
+        if(updateData){
+            getEvents(setEvents, id);
+            console.log('useEffect');
+            loadData();
+
+            setUpdateData(false);
+        }
+    }, [updateData])
 
     const handleEventClick = (item) => {
         setselectedItem(item);
@@ -27,6 +32,7 @@ const Timeline = () => {
 
     const handleEventClosed = () => {
         setselectedItem(null);
+        setUpdateData(true);
     }
 
     const addEvents = (year) => {
@@ -96,7 +102,6 @@ const Timeline = () => {
                         <section className='events-container'>
                                 {loadData()}
                         </section>
-                        <button id="btnNewEvent" className='new-event-button'>New event</button>
                         {
                             selectedItem != null && (
                                 <Toast info={selectedItem} handleClosed={() => handleEventClosed()}></Toast>
@@ -107,6 +112,8 @@ const Timeline = () => {
                 ) : <></>}
             </div>
         }
+        
+        <button id="btnNewEvent" className='new-event-button'>New event</button>
         </>
     )
 }

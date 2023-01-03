@@ -9,11 +9,7 @@
 
     border-radius: 15px;
     border: 1px solid var(--white);
-    padding: 35px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    padding: 20px;
 }
 
 
@@ -32,15 +28,15 @@
     align-items: center;
 }
 
-.close-button{
+.toast-button{
     text-decoration: none;
     
     display: flex;
     justify-content: center;
     align-items: center;   
 
-    width: 4rem;
-    height: 2rem;
+    width: 5rem;
+    height: 2.5rem;
 
     border: none;
     border-radius: 10px;
@@ -50,7 +46,7 @@
     color: var(--white);
 }
 
-.close-button:hover{
+.toast-button:hover{
     cursor: pointer;
     background-color: var(--secondary);;
 }
@@ -78,4 +74,18 @@ input:focus-visible, textarea:focus-visible{
 .toast-title{
     font-size: 1.5em;
     font-weight: bolder;
+}
+
+.toast-footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.toast-header{
+    gap: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
 }
