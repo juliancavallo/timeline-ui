@@ -89,3 +89,12 @@ input:focus-visible, textarea:focus-visible{
     justify-content: flex-end;
     margin-bottom: 20px;
 }
+
+button:disabled{
+    background-color: grey;
+}
+
+button:disabled:hover{
+    cursor: default;
+    background-color: grey;
+}

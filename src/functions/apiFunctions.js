@@ -6,6 +6,24 @@ const getAllTimelines = async (state) => {
     state(response.data);
 }
 
+const getTimeline = async (state, idTimeline) => {
+    console.log('getTimeline');
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/timelines`);
+    state(response.data.filter(x => x.id == idTimeline)[0]);
+}
+
+const updateTimeline = async (info, id) => {
+    console.log('updateTimeline');
+    const response = await axios.put(`${process.env.REACT_APP_API_URL}/timelines/${id}`, info);
+    console.log(response);
+}
+
+const createTimeline = async (info) => {
+    console.log('createTimeline');
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/timelines`, info);
+    console.log(response);
+}
+
 const getEvents = async (state, idTimeline) => {
     console.log('getEvents');
     const response = await axios.get(`${process.env.REACT_APP_API_URL}/events/${idTimeline}`);
@@ -25,9 +43,19 @@ const updateEvent = async (info, id) => {
     console.log(response);
 }
 
+const deleteEvent = async (id) => {
+    console.log('deleteEvent');
+    const response = await axios.delete(`${process.env.REACT_APP_API_URL}/events/${id}`);
+    console.log(response);
+}
+
 export {
     getAllTimelines,
+    getTimeline,
+    updateTimeline,
+    createTimeline,
     getEvents,
     createEvent,
-    updateEvent
+    updateEvent,
+    deleteEvent
 }

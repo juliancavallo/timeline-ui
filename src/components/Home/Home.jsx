@@ -24,7 +24,7 @@ const Home = () => {
                         {timelines.map(x => (
                             <Link to={`/timelines/${x.id}`} className='timeline-thumbnail' key={x.id}>{x.title}</Link>
                         )).concat(
-                            <Link key='addTimelineBtn' className='button-thumbnail'>
+                            <Link to={`/timelines`} key='addTimelineBtn' className='button-thumbnail'>
                                 New timeline
                             </Link>
                         )}

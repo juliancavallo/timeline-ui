@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { getEvents } from '../../functions/apiFunctions';
-import { useParams } from "react-router";
+import { getEvents, getTimeline, updateTimeline, createTimeline } from '../../functions/apiFunctions';
 import {useWindowWidth} from '../../functions/customHooks'
 import './timeline.css'
 import Toast from '../Toast/Toast';
+import {useParams} from 'react-router'
 import { Link } from 'react-router-dom';
-import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight} from '@mui/icons-material';
+import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight, Save} from '@mui/icons-material';
 
 const Timeline = () => {
-    let { id } = useParams();
+    const [timeline, setTimeline] = useState({});
+    let {id} = useParams();
     const [events, setEvents] = useState(null);
     const [range, setRange] = useState(1);
     const [offset, setOffset] = useState(0);
@@ -24,12 +25,22 @@ const Timeline = () => {
             }
 
             getEventsAsync();
-            console.log('useEffect');
+            console.log('useEffect - updateData');
             loadData();
 
             setUpdateData(false);
         }
     }, [updateData])
+
+    useEffect(() => {
+        async function getTimelineAsync(){
+            await getTimeline(setTimeline, id);
+        }
+        
+        getTimelineAsync();
+        
+        console.log('useEffect - getTimeline');
+    }, []);
 
     const handleEventClick = (item) => {
         setselectedItem(item);
@@ -84,27 +95,28 @@ const Timeline = () => {
     return (
         <>
         <Link to={'/'} className='redirect-button'><Home></Home></Link>
+        <p className='timeline-title'>{timeline.title}</p>
+        <section className="buttons-container">
+            <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardDoubleArrowLeft/></button>
+            <div className="select-container">
+                <label htmlFor="range">Year range</label>
+                <select name="selectRange" id="range" className="select" onChange={(e) => setRange(Number(e.target.value))}>
+                    <option value="1">1</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="500">500</option>
+                </select>
+            </div>
+            <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}><KeyboardDoubleArrowRight/></button>
+        </section>
         {
             <div className="timeline">
                 {(events != null && events.length > 0) ? (
                     <>
-                        <section className="buttons-container">
-                            <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardDoubleArrowLeft/></button>
-                            <div className="select-container">
-                                <label htmlFor="range">Year range</label>
-                                <select name="selectRange" id="range" className="select" onChange={(e) => setRange(Number(e.target.value))}>
-                                    <option value="1">1</option>
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="200">200</option>
-                                    <option value="500">500</option>
-                                </select>
-                            </div>
-                            <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}><KeyboardDoubleArrowRight/></button>
-                        </section>
                         <section className='events-container'>
                                 {loadData()}
                         </section>

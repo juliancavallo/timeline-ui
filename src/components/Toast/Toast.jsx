@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import './toast.css'
 import {Close, Delete} from '@mui/icons-material';
-import { createEvent, updateEvent } from '../../functions/apiFunctions';
+import { createEvent, updateEvent, deleteEvent } from '../../functions/apiFunctions';
 
 const Toast = ({info, handleClosed}) => {
     const [title, setTitle] = useState(info.title ?? 'Title...');
     const [summary, setSummary] = useState(info.summary ?? 'Description...');
     const [date, setDate] = useState(info.date != null ? info.date.split('T')[0] : '2022-01-01');
 
-    const handleDeleted = () => {
-        alert(info.id);
+    const handleDeleted = async () => {
+        if(info.id)
+            await deleteEvent(info.id);
+
+        handleClosed();
     }
 
     const handleSaved = async () => {
@@ -32,7 +35,7 @@ const Toast = ({info, handleClosed}) => {
         <div className='toast-wrapper'>
             <div className='toast'>
                 <div className='toast-header'>
-                    <button className='toast-button' onClick={() => handleDeleted()}><Delete/></button>
+                    <button className='toast-button' onClick={() => handleDeleted()} disabled={info.id == null}><Delete/></button>
                     <button className='toast-button' onClick={handleClosed}><Close/></button>
                 </div>
 
