@@ -54,7 +54,7 @@ const Home = () => {
         <>
             {
                 timelines != null ? (
-                    <div className='timeline-container'>
+                    <div className='timeline-container' key={'c1'}>
                         {timelines.map(x => (
                             <>
                                 <Link to={`/timeline-ui/timelines/${x.id}`} className='timeline-thumbnail' key={x.id}>{x.title}
@@ -80,7 +80,7 @@ const Home = () => {
                     </div>
                 
                 ) : (
-                    <div className='timeline-container'>
+                    <div className='timeline-container' key={'c2'}>
                         <div key='addTimelineBtn' className='button-thumbnail' onClick={(e) => handleCreate(e)}>
                             <p>New timeline</p>
                         </div>

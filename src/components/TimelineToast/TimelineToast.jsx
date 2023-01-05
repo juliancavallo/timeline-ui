@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import {Close} from '@mui/icons-material';
 import { createTimeline, updateTimeline } from '../../functions/apiFunctions';
 
 const TimelineToast = ({info, handleClosed}) => {
