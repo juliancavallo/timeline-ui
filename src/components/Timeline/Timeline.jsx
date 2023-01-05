@@ -19,7 +19,6 @@ const Timeline = () => {
     const [selectedItem, setselectedItem] = useState(null);
     
     const [fetchData, setFetchData] = useState(true);
-    const [updateRenderedEvents, setUpdateRenderedEvents] = useState(false);
     const [createEvent, setCreateEvent] = useState(null);
     
     const windowWidth = useWindowWidth();
@@ -29,7 +28,6 @@ const Timeline = () => {
         if(fetchData){
             async function getEventsAsync(){
                 await getEvents(setEvents, id);
-                setUpdateRenderedEvents(true);
             }
 
             getEventsAsync();
@@ -71,7 +69,6 @@ const Timeline = () => {
                 setEventsToRender(elements);
             }
             
-            setUpdateRenderedEvents(false);
         }
         
         const addEvents = (year) => {
@@ -91,9 +88,8 @@ const Timeline = () => {
             return elements;
         }
 
-        if(updateRenderedEvents)
             loadData(); 
-    }, [events, offset, range, windowWidth, updateRenderedEvents])
+    }, [events, offset, range, windowWidth])
 
     const handleEventClick = (item) => {
         setselectedItem(item);
