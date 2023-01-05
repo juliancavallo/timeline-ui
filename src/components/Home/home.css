@@ -16,9 +16,11 @@
     margin: 20px;
     width: 15vw;
     height: 15vh;
+    min-height: 90px;
 
     display: flex;
-    justify-content: center;
+    flex-direction: column ;
+    justify-content: space-around;
     align-items: center;    
     text-align: center;
 
@@ -39,6 +41,22 @@
     flex-wrap: wrap;
     align-items: center;
     padding: 5vw;
+}
+
+.action-buttons-container{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-evenly;
+}
+
+.action-button{
+    color: var(--black);
+}
+
+.action-button:hover{
+    color: var(--white);
+    cursor: pointer;
 }
 
 @media(max-width: 700px){

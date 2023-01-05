@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { getEvents, getTimeline, updateTimeline, createTimeline } from '../../functions/apiFunctions';
+import { getEvents, getTimeline } from '../../functions/apiFunctions';
 import {useWindowWidth} from '../../functions/customHooks'
 import './timeline.css'
-import Toast from '../Toast/Toast';
+import EventToast from '../EventToast/EventToast';
 import {useParams} from 'react-router'
 import { Link } from 'react-router-dom';
-import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight, Save} from '@mui/icons-material';
+import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from '@mui/icons-material';
 
 const Timeline = () => {
     const [timeline, setTimeline] = useState({});
@@ -34,7 +34,7 @@ const Timeline = () => {
 
     useEffect(() => {
         async function getTimelineAsync(){
-            await getTimeline(setTimeline, id);
+            await getTimeline(setTimeline, parseInt(id));
         }
         
         getTimelineAsync();
@@ -94,7 +94,7 @@ const Timeline = () => {
     console.log('render')
     return (
         <>
-        <Link to={'/'} className='redirect-button'><Home></Home></Link>
+        <Link to={'/timeline-ui'} className='redirect-button'><Home></Home></Link>
         <p className='timeline-title'>{timeline.title}</p>
         <section className="buttons-container">
             <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardDoubleArrowLeft/></button>
@@ -122,7 +122,7 @@ const Timeline = () => {
                         </section>
                         {
                             selectedItem != null && (
-                                <Toast info={selectedItem} handleClosed={() => handleEventClosed()}></Toast>
+                                <EventToast info={selectedItem} handleClosed={() => handleEventClosed()}></EventToast>
                             )
                         }
                     </>
@@ -134,7 +134,7 @@ const Timeline = () => {
         <button id="btnNewEvent" className='new-event-button' onClick={() => setCreateEvent(true)}>New event</button>
         {
             createEvent != null && (
-                <Toast handleClosed={() => handleEventClosed()} info={({idTimeline: id})}></Toast>
+                <EventToast handleClosed={() => handleEventClosed()} info={({idTimeline: id})}></EventToast>
             )
         }
         </>

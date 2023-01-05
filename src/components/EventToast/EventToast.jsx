@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import './toast.css'
+import './eventToast.css'
 import {Close, Delete} from '@mui/icons-material';
 import { createEvent, updateEvent, deleteEvent } from '../../functions/apiFunctions';
 
-const Toast = ({info, handleClosed}) => {
+const EventToast = ({info, handleClosed}) => {
     const [title, setTitle] = useState(info.title ?? 'Title...');
     const [summary, setSummary] = useState(info.summary ?? 'Description...');
     const [date, setDate] = useState(info.date != null ? info.date.split('T')[0] : '2022-01-01');
@@ -52,4 +52,4 @@ const Toast = ({info, handleClosed}) => {
     )
 }
 
-export default Toast;
+export default EventToast;
