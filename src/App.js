@@ -7,9 +7,9 @@ function App() {
     <div className="container">
       <BrowserRouter>
         <Routes>
-          <Route path='/timeline-ui/' element={<Home></Home>}></Route>
-          <Route path='/timeline-ui/timelines' element={<Timeline></Timeline>}></Route>
-          <Route path='/timeline-ui/timelines/:id' element={<Timeline></Timeline>}></Route>
+          <Route path='/' element={<Home></Home>}></Route>
+          <Route path='/timelines' element={<Timeline></Timeline>}></Route>
+          <Route path='/timelines/:id' element={<Timeline></Timeline>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

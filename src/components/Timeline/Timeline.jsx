@@ -110,7 +110,7 @@ const Timeline = () => {
     console.log('render')
     return (
         <>
-        <Link to={'/timeline-ui'} className='redirect-button'><Home></Home></Link>
+        <Link to={'/'} className='redirect-button'><Home></Home></Link>
         <p className='timeline-title'>{timeline.title}</p>
         <section className="buttons-container">
             <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardDoubleArrowLeft/></button>

@@ -54,10 +54,10 @@ const Home = () => {
         <>
             {
                 timelines != null ? (
-                    <div className='timeline-container' key={'c1'}>
+                    <div className='timeline-container'>
                         {timelines.map(x => (
                             <>
-                                <Link to={`/timeline-ui/timelines/${x.id}`} className='timeline-thumbnail' key={x.id}>{x.title}
+                                <Link to={`/timelines/${x.id}`} className='timeline-thumbnail' key={x.id}>{x.title}
                                     <div className='action-buttons-container'>
                                         <Delete className='action-button' onClick={(e) => handleDelete(e, x.id)}/>
                                         <Edit className='action-button' onClick={(e) => handleEdit(e, x.id)}/>
@@ -80,7 +80,7 @@ const Home = () => {
                     </div>
                 
                 ) : (
-                    <div className='timeline-container' key={'c2'}>
+                    <div className='timeline-container'>
                         <div key='addTimelineBtn' className='button-thumbnail' onClick={(e) => handleCreate(e)}>
                             <p>New timeline</p>
                         </div>
