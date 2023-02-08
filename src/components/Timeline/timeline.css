@@ -113,7 +113,7 @@
 
 .new-event-button{
     transform: translate(-50%, -50%);
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 50%;
     width: 9rem;

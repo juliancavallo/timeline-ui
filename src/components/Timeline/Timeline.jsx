@@ -5,7 +5,7 @@ import './timeline.css'
 import EventToast from '../EventToast/EventToast';
 import {useParams} from 'react-router'
 import { Link } from 'react-router-dom';
-import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight } from '@mui/icons-material';
+import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 
 const Timeline = () => {
     const [timeline, setTimeline] = useState({});
@@ -47,10 +47,18 @@ const Timeline = () => {
         console.log('useEffect - getTimeline');
     }, [id]);
 
+    const convertToUTCDate = (date) => {
+        const year = date.getUTCFullYear();
+        const month = date.getUTCMonth();
+        const day = date.getUTCDate();
+        return new Date(year, month, day);
+    }
+
     useEffect(() => {    
         const loadData = () => {
             if(events != null && events.length > 0){
-                const firstYear = new Date(events[0].date).getFullYear() + (offset * range);
+                const date = convertToUTCDate(new Date(events[0].date));
+                const firstYear = date.getFullYear() + (offset * range);
                 const timelineWidth = windowWidth * 0.9;
     
                 const eventsQty = Math.max(Math.floor((timelineWidth / 200)) - 1, 1); //200px is the event width
@@ -74,7 +82,7 @@ const Timeline = () => {
         const addEvents = (year) => {
             let elements = [];
             const nextYear = year + range;
-            const eventsInRange = events.filter(x => new Date(x.date).getFullYear() >= year && new Date(x.date).getFullYear() < nextYear);
+            const eventsInRange = events.filter(x => convertToUTCDate(new Date(x.date)).getFullYear() >= year && convertToUTCDate(new Date(x.date)).getFullYear() < nextYear);
     
             if(eventsInRange){
                 for(let i in eventsInRange){
@@ -91,6 +99,17 @@ const Timeline = () => {
             loadData(); 
     }, [events, offset, range, windowWidth])
 
+    const goToEnd = () => {
+        const lastYear = convertToUTCDate(new Date(events[events.length - 1].date)).getFullYear();
+        const firstYear = convertToUTCDate(new Date(events[0].date)).getFullYear();
+        const newOffset = (lastYear - firstYear) / range;
+        setOffset(newOffset);
+    }
+
+    const goToStart = () => {
+        setOffset(0);
+    }
+
     const handleEventClick = (item) => {
         setselectedItem(item);
     }
@@ -101,6 +120,18 @@ const Timeline = () => {
         setFetchData(true);
     }
 
+    const handleEventChangeRange = (newRange) => {
+        const firstYearOnScreen =   eventsToRender[0].props.children[0];
+        const firstYear = convertToUTCDate(new Date(events[0].date)).getFullYear();
+
+        const yearsDifference = firstYearOnScreen - firstYear;
+        
+        const newOffset = Math.floor(yearsDifference / newRange); 
+
+        setRange(newRange);
+        setOffset(newOffset);
+    }
+
 
     
     console.log('render')
@@ -109,10 +140,11 @@ const Timeline = () => {
         <Link to={'/'} className='redirect-button'><Home></Home></Link>
         <p className='timeline-title'>{timeline.title}</p>
         <section className="buttons-container">
-            <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardDoubleArrowLeft/></button>
+            <button id="btnStart" className="time-btn" onClick={() => goToStart()}><KeyboardDoubleArrowLeft/></button>
+            <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardArrowLeft/></button>
             <div className="select-container">
                 <label htmlFor="range">Year range</label>
-                <select name="selectRange" id="range" className="select" onChange={(e) => setRange(Number(e.target.value))}>
+                <select name="selectRange" id="range" className="select" onChange={(e) => handleEventChangeRange(Number(e.target.value))}>
                     <option value="1">1</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -123,7 +155,8 @@ const Timeline = () => {
                     <option value="500">500</option>
                 </select>
             </div>
-            <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}><KeyboardDoubleArrowRight/></button>
+            <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}><KeyboardArrowRight/></button>
+            <button id="btnEnd" className="time-btn" onClick={() => goToEnd()}><KeyboardDoubleArrowRight/></button>
         </section>
         {
             <div className="timeline">
