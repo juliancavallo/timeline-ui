@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { getEvents, getTimeline } from '../../functions/apiFunctions';
+import { getEvents, getTimeline, isAuthorized } from '../../functions/apiFunctions';
 import {useWindowWidth} from '../../functions/customHooks'
 import './timeline.css'
 import EventToast from '../EventToast/EventToast';
 import {useParams} from 'react-router'
 import { Link } from 'react-router-dom';
 import {Home, KeyboardDoubleArrowLeft, KeyboardDoubleArrowRight, KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import LoginToast from '../LoginToast/LoginToast';
 
 const Timeline = () => {
     const [timeline, setTimeline] = useState({});
@@ -20,6 +21,7 @@ const Timeline = () => {
     
     const [fetchData, setFetchData] = useState(true);
     const [createEvent, setCreateEvent] = useState(null);
+    const [showLogin, setShowLogin] = useState(false);
     
     const windowWidth = useWindowWidth();
     
@@ -111,7 +113,11 @@ const Timeline = () => {
     }
 
     const handleEventClick = (item) => {
-        setselectedItem(item);
+
+        if(isAuthorized())
+            setselectedItem(item);
+        else
+            setShowLogin(true);
     }
 
     const handleEventClosed = () => {
@@ -132,56 +138,73 @@ const Timeline = () => {
         setOffset(newOffset);
     }
 
+    const handleClickNewEvent = (e) => {
+        e.preventDefault();
+
+        if(isAuthorized())
+            setCreateEvent(true);
+        else
+            setShowLogin(true);
+    }
+
+    const handleLoginToastClosed = () => {
+        setShowLogin(false);
+    }
 
     
     console.log('render')
     return (
         <>
-        <Link to={'/'} className='redirect-button'><Home></Home></Link>
-        <p className='timeline-title'>{timeline.title}</p>
-        <section className="buttons-container">
-            <button id="btnStart" className="time-btn" onClick={() => goToStart()}><KeyboardDoubleArrowLeft/></button>
-            <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardArrowLeft/></button>
-            <div className="select-container">
-                <label htmlFor="range">Year range</label>
-                <select name="selectRange" id="range" className="select" onChange={(e) => handleEventChangeRange(Number(e.target.value))}>
-                    <option value="1">1</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="200">200</option>
-                    <option value="500">500</option>
-                </select>
-            </div>
-            <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}><KeyboardArrowRight/></button>
-            <button id="btnEnd" className="time-btn" onClick={() => goToEnd()}><KeyboardDoubleArrowRight/></button>
-        </section>
-        {
-            <div className="timeline">
-                {(events != null && events.length > 0) ? (
-                    <>
-                        <section className='events-container'>
-                                {eventsToRender}
-                        </section>
-                        {
-                            selectedItem != null && (
-                                <EventToast info={selectedItem} handleClosed={() => handleEventClosed()}></EventToast>
-                            )
-                        }
-                    </>
+            <>
+                <Link to={'/'} className='redirect-button'><Home></Home></Link>
+                <p className='timeline-title'>{timeline.title}</p>
+                <section className="buttons-container">
+                    <button id="btnStart" className="time-btn" onClick={() => goToStart()}><KeyboardDoubleArrowLeft/></button>
+                    <button id="btnBack" className="time-btn" onClick={() => setOffset(Math.max(offset - 1, 0))}><KeyboardArrowLeft/></button>
+                    <div className="select-container">
+                        <label htmlFor="range">Year range</label>
+                        <select name="selectRange" id="range" className="select" onChange={(e) => handleEventChangeRange(Number(e.target.value))}>
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                        </select>
+                    </div>
+                    <button id="btnForward" className="time-btn" onClick={() => setOffset(offset + 1)}><KeyboardArrowRight/></button>
+                    <button id="btnEnd" className="time-btn" onClick={() => goToEnd()}><KeyboardDoubleArrowRight/></button>
+                </section>
+                {
+                    <div className="timeline">
+                        {(events != null && events.length > 0) ? (
+                            <>
+                                <section className='events-container'>
+                                        {eventsToRender}
+                                </section>
+                                {
+                                    selectedItem != null && (
+                                        <EventToast info={selectedItem} handleClosed={() => handleEventClosed()}></EventToast>
+                                    )
+                                }
+                            </>
 
-                ) : <></>}
-            </div>
-        }
-        
-        <button id="btnNewEvent" className='new-event-button' onClick={() => setCreateEvent(true)}>New event</button>
-        {
-            createEvent != null && (
-                <EventToast handleClosed={() => handleEventClosed()} info={({idTimeline: id})}></EventToast>
-            )
-        }
+                        ) : <></>}
+                    </div>
+                }
+                
+                <button id="btnNewEvent" className='new-event-button' onClick={(e) => handleClickNewEvent(e)}>New event</button>
+                {
+                    createEvent != null && (
+                        <EventToast handleClosed={() => handleEventClosed()} info={({idTimeline: id})}></EventToast>
+                    )
+                }
+            </>
+            <>
+                { showLogin ? <LoginToast handleClosed={() => handleLoginToastClosed()}></LoginToast> : null }
+            </>
         </>
     )
 }

@@ -76,6 +76,10 @@ input:focus-visible, textarea:focus-visible{
     font-weight: bolder;
 }
 
+.centered-text{
+    text-align: center;
+}
+
 .toast-footer{
     width: 100%;
     display: flex;
