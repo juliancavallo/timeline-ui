@@ -33,6 +33,7 @@
 .timeline-thumbnail:hover, .button-thumbnail:hover{
     cursor: pointer;
     background-color: var(--secondary);
+    color: var(--white);
 }
 
 .timeline-container{

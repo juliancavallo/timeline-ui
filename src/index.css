@@ -5,16 +5,16 @@
 }
 
 :root{
-  --primary: #EAAC8B;
-  --secondary: #E56B6F;
-  --white: rgb(230, 230, 230);
-  --black: #0d0e0f;
-  --dark: #355070;
+  --primary: #cd9e7c;
+  --secondary: #606c5a;
+  --white: #f3f0e8;
+  --black: #504f49;
+  --background: #d6cec7;
 }
 
 body {
   margin: 0;
-  background-color: var(--dark);
+  background-color: var(--background);
 }
 
 body, button, input, textarea{

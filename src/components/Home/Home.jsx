@@ -27,10 +27,11 @@ const Home = () => {
 
     const handleDelete = async (e, id) => {
         e.preventDefault();
-        await deleteTimeline(id);
 
-        if(isAuthorized())
+        if(isAuthorized()){
+            await deleteTimeline(id);
             setUpdateData(true);
+        }
         else
             setShowLogin(true);
     }
