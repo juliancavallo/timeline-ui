@@ -1,6 +1,6 @@
 .timeline{
     border-radius: 5px;
-    border: none;
+    border: 1px solid var(--black);
     
     height: 1rem;
     width: 90vw;
@@ -56,6 +56,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    
+    border: 1px solid var(--black);
 }
 
 .time-btn{

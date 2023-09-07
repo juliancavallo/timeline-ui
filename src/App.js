@@ -4,6 +4,7 @@ import Timeline from './components/Timeline/Timeline'
 
 function App() {
   return (
+    <>
     <div className="container">
       <BrowserRouter>
         <Routes>
@@ -13,6 +14,10 @@ function App() {
         </Routes>
       </BrowserRouter>
     </div>
+    <div className="background-image">
+      <div className="circle"></div>
+    </div>
+    </>
   );
 }
 

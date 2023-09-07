@@ -1,12 +1,14 @@
 .timeline-thumbnail {
     background-color: var(--primary);
     color: var(--black);
+    border: 1px solid var(--black);
 }
 
 .button-thumbnail{
     
     background-color: var(--white);
     color: var(--black);
+    border: 1px solid var(--black);
 }
 
 .timeline-thumbnail, .button-thumbnail {

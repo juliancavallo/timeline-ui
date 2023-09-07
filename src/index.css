@@ -9,12 +9,28 @@
   --secondary: #606c5a;
   --white: #f3f0e8;
   --black: #504f49;
-  --background: #d6cec7;
+  --background: #e9e6dd;
 }
 
 body {
   margin: 0;
   background-color: var(--background);
+  
+}
+
+.circle{
+  height: 800px;
+  width: 800px;
+  bottom: -400px;
+  right: -400px;
+
+  position: fixed;
+  z-index: -10;
+
+  background-color: #cd9e7c47;
+
+  border-radius: 50%;
+  filter: blur(1px);
 }
 
 body, button, input, textarea{
